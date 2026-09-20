@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Result Card - {{ student.name }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="container narrow">
+<section class="result-card card">
+<div class="result-head"><h1>STUDENT RESULT CARD</h1><p>Academic Performance Report</p></div>
+<div class="student-info">
+<p><b>Student ID:</b> {{ student.student_id }}</p>
+<p><b>Name:</b> {{ student.name }}</p>
+<p><b>Class:</b> {{ student.class_name }}</p>
+</div>
+<table>
+<thead><tr><th>Subject</th><th>Marks</th><th>Maximum</th><th>Status</th></tr></thead>
+<tbody>
+{% for key,label in [('english','English'),('mathematics','Mathematics'),('science','Science'),('social_studies','Social Studies'),('computer','Computer')] %}
+<tr><td>{{ label }}</td><td>{{ "%.1f"|format(student[key]) }}</td><td>100</td><td>{{ "Pass" if student[key] >= 35 else "Fail" }}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+<div class="summary">
+<div><span>Total</span><b>{{ "%.1f"|format(student.total) }}/500</b></div>
+<div><span>Percentage</span><b>{{ "%.2f"|format(student.percentage) }}%</b></div>
+<div><span>Grade</span><b>{{ student.grade }}</b></div>
+<div><span>Result</span><b class="{{ student.result|lower }}">{{ student.result }}</b></div>
+</div>
+<div class="print-actions">
+<button class="btn" onclick="window.print()">Print Result</button>
+<a class="btn secondary" href="{{ url_for('index') }}">Back</a>
+</div>
+</section>
+</main>
+</body>
+</html>

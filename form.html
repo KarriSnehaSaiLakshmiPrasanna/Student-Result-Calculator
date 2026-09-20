@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ "Edit" if student else "Add" }} Student</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar"><div><h1>{{ "Edit" if student else "Add" }} Student</h1><p>Enter marks out of 100</p></div>
+<a class="btn secondary" href="{{ url_for('index') }}">Back</a></header>
+<main class="container narrow">
+<section class="card">
+<form method="post" id="studentForm">
+<div class="grid">
+<label>Student ID<input required name="student_id" value="{{ student.student_id if student else '' }}"></label>
+<label>Student Name<input required name="name" value="{{ student.name if student else '' }}"></label>
+<label>Class<input required name="class_name" value="{{ student.class_name if student else '' }}" placeholder="e.g. 10-A"></label>
+</div>
+<h2>Subject Marks</h2>
+<div class="grid">
+{% for key,label in [('english','English'),('mathematics','Mathematics'),('science','Science'),('social_studies','Social Studies'),('computer','Computer')] %}
+<label>{{ label }}<input required type="number" min="0" max="100" step="0.01" name="{{ key }}" value="{{ student[key] if student else '' }}" class="mark"></label>
+{% endfor %}
+</div>
+<div class="preview">
+  <strong>Live Preview:</strong>
+  <span id="total">Total: 0/500</span>
+  <span id="percentage">Percentage: 0%</span>
+  <span id="grade">Grade: F</span>
+  <span id="result">Result: Fail</span>
+</div>
+<button class="btn" type="submit">{{ "Update Result" if student else "Save Result" }}</button>
+</form>
+</section>
+</main>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
