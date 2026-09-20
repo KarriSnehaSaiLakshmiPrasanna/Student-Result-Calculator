@@ -217,7 +217,7 @@ The main objective of this project is to create a simple web-based system that r
 
 ## 👨‍💻 Author
 
-**Sai Prasanna**
+KARRI SNEHA SAI LAKSHMI PRASANNA
 
 ## ⭐ Support
 
